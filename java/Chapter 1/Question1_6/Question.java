@@ -1,38 +1,18 @@
 package Question1_6;
 
-import CtCILibrary.*;
-
 public class Question {
-
-	public static void rotate(int[][] matrix, int n) {
-		for (int layer = 0; layer < n / 2; ++layer) {
-			int first = layer;
-			int last = n - 1 - layer;
-			for(int i = first; i < last; ++i) {
-				int offset = i - first;
-				int top = matrix[first][i]; // save top
-
-				// left -> top
-				matrix[first][i] = matrix[last-offset][first]; 			
-
-				// bottom -> left
-				matrix[last-offset][first] = matrix[last][last - offset]; 
-
-				// right -> bottom
-				matrix[last][last - offset] = matrix[i][last]; 
-
-				// top -> right
-				matrix[i][last] = top; // right <- saved top
-			}
-		}
-	}
-	
-	public static void main(String[] args) {
-		int[][] matrix = AssortedMethods.randomMatrix(10, 10, 0, 9);
-		AssortedMethods.printMatrix(matrix);
-		rotate(matrix, 10);
-		System.out.println();
-		AssortedMethods.printMatrix(matrix);
-	}
-
+    //try use-case with 4x4 to draw conclusions
+    public void rotate(int[][] matrix) {
+        
+        for (int i = 0; i < matrix.length / 2; i++) {
+            for (int j = i; j < matrix.length - 1 - i; j++) {
+            
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[matrix.length - 1 - j][i];
+                matrix[matrix.length - 1 - j][i] = matrix[matrix.length - 1 - i][matrix.length - 1 - j];
+                matrix[matrix.length - 1 - i][matrix.length - 1 - j] = matrix[j][matrix.length - 1 - i];
+                matrix[j][matrix.length - 1 - i] = temp;
+            }
+        }
+    }
 }
